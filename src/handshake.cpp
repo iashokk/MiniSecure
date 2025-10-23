@@ -19,7 +19,7 @@ if (!ok_alpn) return {false, "", "alpn_not_supported"};
   auto session_key = std::string();
 if (ch.supports_resume) {
   // pretend cached server_nonce "sRESUME" (simulation for POC)
-  session_key = derive_key(psk_, ch.client_nonce, "sRESUME");
+  session_key = derive_key(psk_, "sRESUME", ch.client_nonce);
 } else {
   session_key = derive_key(psk_, ch.client_nonce, sh.server_nonce);
 }

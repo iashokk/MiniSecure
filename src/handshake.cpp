@@ -15,7 +15,7 @@ for (auto* a : allowed) if (ch.alpn == a) { ok_alpn = true; break; }
 if (!ok_alpn) return {false, "", "alpn_not_supported"};
   t.add("CH:" + ch.client_nonce + ":" + ch.version);
   if (!sh.accept) return {false, "", "rejected"};
-  t.add("SH:" + sh.server_nonce + ":accept");
+ 
   auto session_key = derive_key(psk_, ch.client_nonce, sh.server_nonce);
 auto client_fin  = toy_hmac(session_key, t.str()+"client");
 t.add("CFIN:"+client_fin);

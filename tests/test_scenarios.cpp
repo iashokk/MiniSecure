@@ -6,5 +6,6 @@ int main() {
   assert(ok.ok);
   auto rej = hs.run({"abc","1"}, {"xyz", false});
   assert(!rej.ok);
+  auto res = hs.run({"c123","1","http/1.1",false}, {"s456", true});
   return 0;
 }

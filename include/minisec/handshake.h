@@ -4,7 +4,13 @@
 
 namespace minisec {
 
-struct ClientHello { std::string client_nonce; std::string version="1"; };
+struct ClientHello {
+  std::string client_nonce;
+  std::string version="1";
+  std::string alpn="http/1.1";
+  bool supports_resume=false;
+};
+
 struct ServerHello { std::string server_nonce; bool accept=true; };
 //struct Finished    { std::string mac; };
 

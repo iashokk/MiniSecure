@@ -3,7 +3,7 @@
 #include <iostream>
 int main() {
   minisec::Handshake hs("psk-demo");
-  auto res = hs.run({"c123","1"}, {"s456", true});
+  auto res = hs.run({"c123","1","http/1.1",false}, {"s456", true});
   std::cout << (res.ok ? "OK " : "FAIL ") << res.session_key << "\n";
   minisec::TransportSim net;
   net.send({"hello"});

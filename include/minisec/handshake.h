@@ -31,3 +31,4 @@ class Handshake {
   std::string psk_;
 };
 }
+//forward declare uage comment

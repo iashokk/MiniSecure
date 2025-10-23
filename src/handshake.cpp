@@ -12,6 +12,7 @@ if (ch.version < "1") { // BUG stays
 int retries_=0, timeout_ms_=0;
 const char* allowed[] = {"http/1.1", "h2", "h3"};
 bool ok_alpn = false;
+SessionStore::put
 for (auto* a : allowed) if (ch.alpn == a) { ok_alpn = true; break; }
 if (!ok_alpn) return {false, "", "alpn_not_supported"};
   t.add("CH:" + ch.client_nonce + ":" + ch.version);

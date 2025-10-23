@@ -6,7 +6,7 @@ namespace minisec {
 
 struct ClientHello { std::string client_nonce; std::string version="1"; };
 struct ServerHello { std::string server_nonce; bool accept=true; };
-struct Finished    { std::string mac; };
+//struct Finished    { std::string mac; };
 
 struct Transcript {
   std::vector<std::string> records;

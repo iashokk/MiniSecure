@@ -17,10 +17,17 @@ if (!ok_alpn) return {false, "", "alpn_not_supported"};
   if (!sh.accept) return {false, "", "rejected"};
   t.add("SH:" + sh.server_nonce + ":accept");
   auto session_key = derive_key(psk_, ch.client_nonce, sh.server_nonce);
-  auto client_fin  = toy_hmac(session_key, t.str()+"client");
-  t.add("CFIN:"+client_fin);
-  auto server_fin  = toy_hmac(session_key, t.str()+"server");
-  (void)server_fin; // placeholder for future verify logic
-  return {true, session_key, ""};
+auto client_fin  = toy_hmac(session_key, t.str()+"client");
+t.add("CFIN:"+client_fin);
+auto server_fin  = toy_hmac(session_key, t.str()+"server");
+t.add("SFIN:"+server_fin);
+
+// naive invariant: different suffixes should produce different macs
+if (client_fin == server_fin) {
+  return {false, "", "finished_mac_collision"};
+}
+
+return {true, session_key, ""};
+
 }
 }

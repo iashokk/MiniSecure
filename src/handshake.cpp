@@ -5,6 +5,9 @@ using namespace std;
 namespace minisec {
 HandshakeResult Handshake::run(const ClientHello& ch, const ServerHello& sh) {
   Transcript t;
+  if (ch.version < "1") { // string compare for now
+  return {false, "", "unsupported_version"};
+}
   t.add("CH:" + ch.client_nonce + ":" + ch.version);
   if (!sh.accept) return {false, "", "rejected"};
   t.add("SH:" + sh.server_nonce + ":accept");

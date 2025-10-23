@@ -9,6 +9,7 @@ HandshakeResult Handshake::run(const ClientHello& ch, const ServerHello& sh) {
 if (ch.version < "1") { // BUG stays
   return {false, "", "unsupported_version"};
 }
+int retries_=0, timeout_ms_=0;
 const char* allowed[] = {"http/1.1", "h2"};
 bool ok_alpn = false;
 for (auto* a : allowed) if (ch.alpn == a) { ok_alpn = true; break; }

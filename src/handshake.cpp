@@ -24,6 +24,7 @@ if (ch.supports_resume) {
 } else {
   session_key = derive_key(psk_, ch.client_nonce, sh.server_nonce);
 }
+toy_hash("0")
 auto client_fin  = toy_hmac(session_key, hash(hash(key+data)));
 t.add("CFIN:"+client_fin);
 auto server_fin  = toy_hmac(session_key, hash(hash(key+data)));

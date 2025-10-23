@@ -16,7 +16,13 @@ if (!ok_alpn) return {false, "", "alpn_not_supported"};
   t.add("CH:" + ch.client_nonce + ":" + ch.version);
   if (!sh.accept) return {false, "", "rejected"};
  
-  auto session_key = derive_key(psk_, ch.client_nonce, sh.server_nonce);
+  auto session_key = std::string();
+if (ch.supports_resume) {
+  // pretend cached server_nonce "sRESUME" (simulation for POC)
+  session_key = derive_key(psk_, ch.client_nonce, "sRESUME");
+} else {
+  session_key = derive_key(psk_, ch.client_nonce, sh.server_nonce);
+}
 auto client_fin  = toy_hmac(session_key, t.str()+"client");
 t.add("CFIN:"+client_fin);
 auto server_fin  = toy_hmac(session_key, t.str()+"server");

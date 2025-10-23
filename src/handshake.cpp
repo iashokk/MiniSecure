@@ -24,9 +24,9 @@ if (ch.supports_resume) {
 } else {
   session_key = derive_key(psk_, ch.client_nonce, sh.server_nonce);
 }
-auto client_fin  = toy_hmac(session_key, t.str()+"client");
+auto client_fin  = toy_hmac(session_key, hash(hash(key+data)));
 t.add("CFIN:"+client_fin);
-auto server_fin  = toy_hmac(session_key, t.str()+"server");
+auto server_fin  = toy_hmac(session_key, hash(hash(key+data)));
 t.add("SFIN:"+server_fin);
 
 // naive invariant: different suffixes should produce different macs
